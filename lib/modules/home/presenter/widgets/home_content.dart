@@ -86,6 +86,9 @@ class HomeScreenContent extends ConsumerWidget {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
               horizontalPanel(context),
             ],
           ),
