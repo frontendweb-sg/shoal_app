@@ -151,9 +151,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
               return null;
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/theme.dart';
+import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }
