@@ -7,6 +7,8 @@ import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
+import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
 import 'package:shoal_app/modules/splash/presenter/providers/index_notifier.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 
@@ -31,7 +33,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         decoration: decoration(),
         child: PageView(
           controller: _controller,
-          onPageChanged: (index) {},
+          onPageChanged: (index) {
+            ref.read(indexDotProvider.notifier).changeIndex(index);
+          },
           children: [
             buildContent(
               index: 1,
@@ -121,11 +125,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
               ),
             ),
             button(context,
-                onPressed: () => onNext(
-                      const Center(
-                        child: Text("Register"),
-                      ),
-                    ),
+                onPressed: () => onNext(const RegisterScreen()),
                 label: index == 3 ? AppContent.strSignup : AppContent.strNext),
             const SizedBox(
               height: 5,
@@ -139,11 +139,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                   button(
                     context,
                     variant: Variant.text,
-                    onPressed: () => onNext(
-                      const Center(
-                        child: Text("Register"),
-                      ),
-                    ),
+                    onPressed: () => onNext(const LoginScreen()),
                     label: AppContent.strLoginText,
                   )
                 ],
