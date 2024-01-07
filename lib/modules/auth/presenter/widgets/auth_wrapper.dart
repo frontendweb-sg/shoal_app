@@ -13,7 +13,7 @@ class AuthWrapper extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.fromLTRB(25.0, 80.0, 25.0, 20.0),
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 50.0,
+            height: MediaQuery.of(context).size.height - 100.0,
             child: child,
           ),
         ),
