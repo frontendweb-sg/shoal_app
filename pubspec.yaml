@@ -38,6 +38,9 @@ dependencies:
   equatable: ^2.0.5
   json_annotation: ^4.8.1
   dartz: ^0.10.1
+  shared_preferences: ^2.2.2
+  dio: ^5.4.0
+  retrofit: ^4.0.3
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +55,7 @@ dev_dependencies:
   json_serializable: ^6.7.1
   custom_lint: ^0.5.7
   build_runner: ^2.4.7
+  retrofit_generator: ^8.0.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
