@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/config/theme/theme.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
@@ -15,8 +16,11 @@ void main() async {
   await Global.init();
 
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    GraphQLProvider(
+      client: Global.graphqlClient,
+      child: const ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }

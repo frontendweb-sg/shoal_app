@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/core/constants/images.dart';
-import 'package:shoal_app/core/common/menu.dart';
+import 'package:shoal_app/core/utils/model/menu.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
 
 class Sidebar extends ConsumerWidget {
