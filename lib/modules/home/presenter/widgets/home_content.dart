@@ -29,8 +29,10 @@ class HomeScreenContent extends ConsumerWidget {
           child: Column(
             children: [
               Expanded(
+                flex: 2,
                 child: GridView.count(
                   shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   mainAxisSpacing: 20.0,
                   crossAxisSpacing: 20.0,
