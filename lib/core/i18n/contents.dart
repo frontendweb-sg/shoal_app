@@ -1,4 +1,5 @@
 class AppContent {
+  static const strNext = "Next";
   static const strAppName = "Shoal app";
   static const strSignUpText = "Sign Up Now";
   static const strSignup = "Sign Up";
@@ -36,7 +37,14 @@ class AppContent {
   static const strBrowseFile = "Browse file";
   static const strSubmit = "Submit";
   static const strRequestSent = 'Your request has succesfully sent';
-  static const strApplyNow = "Apply now";
+  static const strApplyLoan = "Apply Loan";
+  static const strApplyNPS = "Apply NPS";
+  static const strRequest = "Request";
+  static const strContact = "Contact";
+  static const strClickToKnowMore = "Click to know more";
+  static const strSharingCaring = "Sharing is caring!";
+  static const strShareContent =
+      "Share the same account upto 5 members by adding them into your family list.";
 
 // error handler
   static const strNoRouteFound = "no_route_found";

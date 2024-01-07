@@ -1,9 +1,30 @@
 class AppImage {
-  static const imgApppLogo = "assets/images/logo.png";
-  static const imgGirlBoyImg = "assets/images/girl-boy-image.svg";
-  static const imgSplashImage = "assets/images/splash_screen_img.png";
+  static const imgAppLogo = "assets/images/logo.png";
+  static const imgSplashScreen1 = "assets/images/splash-image-1.svg";
+  static const imgSplashScreen2 = "assets/images/splash-image-2.svg";
+  static const imgBackArrow = "assets/images/back-arrow.svg";
+  static const imgArrowLeft = "assets/images/arrow-left.svg";
+  static const imgAccountIcon = "assets/images/account-icon.svg";
+  static const imgCloseIcon = "assets/images/close-icon.svg";
+  static const imgHistoryIcon = "assets/images/history-icon.svg";
+  static const imgHomeIcon = "assets/images/home-icon.svg";
+  static const imgLockGrayIcon = "assets/images/lock-gray-icon.svg";
+  static const imgLoginGrayIcon = "assets/images/login-gray-icon.svg";
+  static const imgLoginIcon = "assets/images/login-icon.svg";
+  static const imgMenuIcon = "assets/images/menu-icon.svg";
+  static const imgNotificationIcon = "assets/images/notification-icon";
+  static const imgScanIcon = "assets/images/scan-icon.svg";
+  static const imgSendIcon = "assets/images/send-icon.svg";
+  static const imgSharingIcon = "assets/images/sharing-icon.svg";
+  static const imgUnlockGrayIcon = "assets/images/unlock-gray-icon.svg";
+  static const imgUploadIcon = "assets/images/upload-icon.svg";
+  static const imgUserIcon = "assets/images/user-icon.svg";
+  static const imgUserProfileIcon = "assets/images/user-profile-icon.svg";
+  static const imgWalletIcon = "assets/images/wallet-icon.svg";
+  static const imgWalletTabIcon = "assets/images/wallet-tab-icon.svg";
+  static const imgInfoGrayIcon = "assets/images/info-gray-icon.svg";
+
   static const imgHomeScreenBg = "assets/images/home-top-bg.png";
-  static const imgNotificationIcon = "assets/images/bell-icon.png";
   static const imgCreditCardIcon = "assets/images/credit-card-Icon.png";
   static const imgUserDollarIcon = "assets/images/user-dollar-icon.png";
   static const imgAddScreenImg = "assets/images/ad-screen.png";

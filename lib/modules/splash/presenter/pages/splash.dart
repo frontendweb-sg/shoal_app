@@ -1,20 +1,25 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
+import 'package:shoal_app/config/theme/typography.dart';
+import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/modules/splash/presenter/providers/index_notifier.dart';
+import 'package:shoal_app/shared/widgets/button.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
+  ConsumerState<SplashScreen> createState() {
     return _SplashScreenState();
   }
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashScreen> {
   final _controller = PageController();
 
   @override
@@ -27,7 +32,26 @@ class _SplashScreenState extends State<SplashScreen> {
         child: PageView(
           controller: _controller,
           onPageChanged: (index) {},
-          children: [buildContent(), buildContent(), buildContent()],
+          children: [
+            buildContent(
+              index: 1,
+              controller: _controller,
+              label: AppContent.strSplashScreenText,
+              image: AppImage.imgSplashScreen1,
+            ),
+            buildContent(
+              index: 2,
+              controller: _controller,
+              label: AppContent.strSplashScreenText,
+              image: AppImage.imgSplashScreen2,
+            ),
+            buildContent(
+              index: 3,
+              controller: _controller,
+              label: AppContent.strSplashScreenText,
+              image: AppImage.imgAppLogo,
+            ),
+          ],
         ),
       ),
     );
@@ -97,7 +121,11 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             button(context,
-                onPressed: () => onNext(const RegisterScreen()),
+                onPressed: () => onNext(
+                      const Center(
+                        child: Text("Register"),
+                      ),
+                    ),
                 label: index == 3 ? AppContent.strSignup : AppContent.strNext),
             const SizedBox(
               height: 5,
@@ -111,8 +139,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   button(
                     context,
                     variant: Variant.text,
-                    onPressed: () => onNext(const LoginScreen()),
-                    label: AppContent().strLoginText,
+                    onPressed: () => onNext(
+                      const Center(
+                        child: Text("Register"),
+                      ),
+                    ),
+                    label: AppContent.strLoginText,
                   )
                 ],
               )

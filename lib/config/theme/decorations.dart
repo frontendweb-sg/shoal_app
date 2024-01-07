@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import './colors.dart';
 
@@ -24,6 +25,16 @@ BoxDecoration decoration() {
       begin: Alignment.bottomCenter,
       end: Alignment.topCenter,
       colors: [AppColor.kLighterGreen, AppColor.kLighterGreen, AppColor.kWhite],
+    ),
+  );
+}
+
+DotsDecorator dotDecoration() {
+  return DotsDecorator(
+    size: const Size.square(10.0),
+    activeSize: const Size(36.0, 10),
+    activeShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5.0),
     ),
   );
 }
