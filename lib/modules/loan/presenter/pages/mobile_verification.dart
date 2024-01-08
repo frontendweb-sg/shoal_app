@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/modules/loan/presenter/widgets/verify_mobile.dart';
 import 'package:shoal_app/shared/widgets/wrapper.dart';
 
 class MobileVerification extends StatelessWidget {
@@ -12,9 +13,13 @@ class MobileVerification extends StatelessWidget {
     return Wrapper(
       child: Column(
         children: [
-          textTitleLarge(context, label: AppContent.strVerifyMobileTitle),
+          textTitleMedium(
+            context,
+            label: AppContent.strVerifyMobileTitle.toUpperCase(),
+            color: AppColor.kBlack,
+          ),
           const SizedBox(
-            height: 15,
+            height: 25,
           ),
           textBodyMedium(context, label: AppContent.strVerifyMobileText),
           const SizedBox(
@@ -24,6 +29,7 @@ class MobileVerification extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
+          const MobileVerificationForm(),
           const SizedBox(
             height: 15,
           ),

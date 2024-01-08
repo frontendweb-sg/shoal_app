@@ -13,6 +13,10 @@ class AppContent {
   static const strVerifyMobileTitle = "Verify Mobile";
   static const strEnterYourPhoneNumber = "Enter your phone number";
   static const strSendCode = "Send Code";
+  static const strAddress = "Address";
+  static const strMobile = "Mobile";
+  static const strCity = "City";
+  static const strPincode = "Pincode";
   static const strVerifyMobileText =
       "Fill in the registration data. It will take a couple of minutes. All you need is a phone number and e-mail";
   static const strHome = "Home";

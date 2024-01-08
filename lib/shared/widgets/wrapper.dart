@@ -8,9 +8,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.fromLTRB(25.0, 25.0, 25.0, 20.0),
+        padding: const EdgeInsets.all(25),
         width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height - 50.0,
+        height: MediaQuery.of(context).size.height - 80.0,
         child: child,
       ),
     );
