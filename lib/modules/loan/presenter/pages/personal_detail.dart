@@ -1,25 +1,40 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/modules/loan/presenter/providers/country.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
 import 'package:shoal_app/shared/widgets/stepper.dart';
 import 'package:shoal_app/shared/widgets/wrapper.dart';
 
-class PersonalDetails extends StatefulWidget {
+class PersonalDetails extends ConsumerStatefulWidget {
   const PersonalDetails({super.key});
 
   @override
-  State<PersonalDetails> createState() {
+  ConsumerState<PersonalDetails> createState() {
     return _PersonalDetailsState();
   }
 }
 
-class _PersonalDetailsState extends State<PersonalDetails> {
+const queryDoc = r'''
+query countries
+{
+  countries
+  {
+    id
+    name
+    isoCode    
+  }
+    
+}
+''';
+
+class _PersonalDetailsState extends ConsumerState<PersonalDetails> {
   final _personalDetailForm = GlobalKey<FormState>();
   final Map<String, dynamic> _form = {
     "name": "",
@@ -31,11 +46,12 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     "pincode": ""
   };
   bool _checked = false;
-  void onSumit() {
-    if (_personalDetailForm.currentState!.validate()) {
-      _personalDetailForm.currentState!.save();
-      print(_form);
-    }
+  void onSumit() async {
+    await ref.read(countryProvider.notifier).getAllCountry(queryDoc);
+    // if (_personalDetailForm.currentState!.validate()) {
+    //   _personalDetailForm.currentState!.save();
+    //   print(_form);
+    // }
   }
 
   @override

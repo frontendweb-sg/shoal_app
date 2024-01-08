@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/config/theme/colors.dart';
-import 'package:shoal_app/core/graphql/config.dart';
+// import 'package:shoal_app/core/graphql/config.dart';
 import 'package:shoal_app/core/utils/host_override_service.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
 
@@ -41,6 +41,6 @@ class Global {
     // initialize
     storage = await StorageService().init();
 
-    graphqlClient = GraphQlConfig.init();
+    // graphqlClient = GraphQlConfig.init();
   }
 }

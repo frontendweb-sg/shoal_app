@@ -8,6 +8,7 @@ import 'package:shoal_app/globals.dart';
 
 import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
+import 'package:shoal_app/modules/loan/presenter/pages/personal_detail.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
 
@@ -16,11 +17,8 @@ void main() async {
   await Global.init();
 
   runApp(
-    GraphQLProvider(
-      client: Global.graphqlClient,
-      child: const ProviderScope(
-        child: MyApp(),
-      ),
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }
