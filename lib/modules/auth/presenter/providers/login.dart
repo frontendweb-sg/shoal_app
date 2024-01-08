@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/core/constants/constants.dart';
 import 'package:shoal_app/core/errors/failure.dart';
-import 'package:shoal_app/gloabl.dart';
+import 'package:shoal_app/globals.dart';
+
 import 'package:shoal_app/modules/auth/business/actions/login.dart';
 import 'package:shoal_app/modules/auth/business/entities/login_response_entity.dart';
 import 'package:shoal_app/modules/auth/business/interface/auth.dart';
