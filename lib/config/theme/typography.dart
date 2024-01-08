@@ -135,7 +135,7 @@ Widget textBodyMedium(
   BuildContext context, {
   required String label,
   Color? color = AppColor.kBodyText,
-  FontWeight? fontWeight = FontWeight.w700,
+  FontWeight? fontWeight,
 }) {
   return Text(
     label,

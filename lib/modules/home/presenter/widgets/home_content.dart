@@ -5,6 +5,7 @@ import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/modules/home/presenter/widgets/horizontal_panel.dart';
 import 'package:shoal_app/modules/home/presenter/widgets/panel.dart';
+import 'package:shoal_app/modules/loan/presenter/pages/personal_detail.dart';
 
 class HomeScreenContent extends ConsumerWidget {
   const HomeScreenContent({super.key});
@@ -43,7 +44,7 @@ class HomeScreenContent extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (builder) => const Center(),
+                            builder: (builder) => const PersonalDetails(),
                           ),
                         );
                       },
@@ -55,7 +56,7 @@ class HomeScreenContent extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (builder) => const Center(),
+                            builder: (builder) => const PersonalDetails(),
                           ),
                         );
                       },
@@ -67,7 +68,7 @@ class HomeScreenContent extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (builder) => const Center(),
+                            builder: (builder) => const PersonalDetails(),
                           ),
                         );
                       },
@@ -79,7 +80,7 @@ class HomeScreenContent extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (builder) => const Center(),
+                            builder: (builder) => const PersonalDetails(),
                           ),
                         );
                       },

@@ -38,3 +38,23 @@ DotsDecorator dotDecoration() {
     ),
   );
 }
+
+DotsDecorator loanDotDecoration(BuildContext context, int screens) {
+  double width = MediaQuery.of(context).size.width / screens - 30.0;
+  return DotsDecorator(
+    sizes: [
+      Size(width, 10),
+      Size(width, 10),
+      Size(width, 10),
+    ],
+    shape: const BeveledRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(3.0),
+      ),
+    ),
+    activeSize: Size(width, 10),
+    activeShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5.0),
+    ),
+  );
+}
