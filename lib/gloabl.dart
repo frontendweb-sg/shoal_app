@@ -41,6 +41,6 @@ class Global {
     // initialize
     storage = await StorageService().init();
 
-    graphqlClient = GraphQlConfig.init(token);
+    graphqlClient = GraphQlConfig.init();
   }
 }

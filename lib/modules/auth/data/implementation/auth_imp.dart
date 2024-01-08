@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shoal_app/core/errors/failure.dart';
 import 'package:shoal_app/modules/auth/business/entities/login_response_entity.dart';
-import 'package:shoal_app/modules/auth/business/entities/register_response_entity.dart';
 import 'package:shoal_app/modules/auth/business/interface/auth.dart';
 import 'package:shoal_app/modules/auth/data/datasource/auth_datasource.dart';
 import 'package:shoal_app/modules/auth/data/models/register_response_model.dart';

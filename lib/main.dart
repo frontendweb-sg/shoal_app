@@ -35,7 +35,7 @@ class MyApp extends ConsumerWidget {
     bool isFirstTime = storageService.userFirstTimeOpenApp();
     bool isToken = storageService.userIsAuthenticated;
 
-    Widget screen = const LoanScreen(); //const SplashScreen();
+    Widget screen = const SplashScreen();
     if (isFirstTime && !isToken) {
       screen = const LoginScreen();
     } else if (isToken) {

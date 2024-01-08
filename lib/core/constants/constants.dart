@@ -2,8 +2,9 @@ class AppConstants {
   // app global urls
 
   static const APP_BASE_URL =
-      'https://xervg54662.execute-api.us-west-2.amazonaws.com/Prod/api';
-  static const APP_BASE_GRAPHQL_URL = "$APP_BASE_URL/graphql";
+      'https://56ehoxomnk.execute-api.us-west-2.amazonaws.com/Prod/api';
+  static const APP_BASE_GRAPHQL_URL =
+      "https://xervg54662.execute-api.us-west-2.amazonaws.com/Prod/api/graphql";
 
   // auth auth urls
   static const APP_REGISTER_URL = "/Account/Register";

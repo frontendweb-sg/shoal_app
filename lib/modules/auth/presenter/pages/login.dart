@@ -7,8 +7,11 @@ import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/forgot_password.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
+import 'package:shoal_app/modules/auth/presenter/providers/login.dart';
 import 'package:shoal_app/modules/auth/presenter/widgets/auth_wrapper.dart';
+import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
+import 'package:shoal_app/shared/widgets/toaster.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -33,7 +36,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
       print(_auth);
       // api logic
-      //  await ref.read(loginProvider.notifier).login(_auth);
+      await ref.read(loginProvider.notifier).login(_auth);
 
       Future.delayed(const Duration(seconds: 10), () {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -47,24 +50,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // ref.listen(
-    //   loginProvider,
-    //   (previous, next) {
-    //     if (next.hasValue) {
-    //       Navigator.of(context).pushReplacement(
-    //         MaterialPageRoute(
-    //           builder: (build) => const HomeScreen(),
-    //         ),
-    //       );
-    //     }
-    //     if (next.hasError) {
-    //       setState(() {
-    //         _loading = false;
-    //       });
-    //       toaster(context, msg: next.asError!.error.toString());
-    //     }
-    //   },
-    // );
+    ref.listen(
+      loginProvider,
+      (previous, next) {
+        if (next.hasValue) {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (build) => const HomeScreen(),
+            ),
+          );
+        }
+        if (next.hasError) {
+          setState(() {
+            _loading = false;
+          });
+          toaster(context, msg: next.asError!.error.toString());
+        }
+      },
+    );
 
     return AuthWrapper(
         child: Column(

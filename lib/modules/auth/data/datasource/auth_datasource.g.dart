@@ -14,7 +14,7 @@ class _AuthDatasource implements AuthDatasource {
     this.baseUrl,
   }) {
     baseUrl ??=
-        'https://xervg54662.execute-api.us-west-2.amazonaws.com/Prod/api';
+        'https://56ehoxomnk.execute-api.us-west-2.amazonaws.com/Prod/api';
   }
 
   final Dio _dio;
