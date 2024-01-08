@@ -3,15 +3,16 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/core/constants/constants.dart';
 
 class GraphQlConfig {
-  HttpLink httpLink = HttpLink(AppConstants.APP_BASE_GRAPHQL_URL);
+  static HttpLink httpLink = HttpLink(AppConstants.APP_BASE_GRAPHQL_URL);
 
-  ValueNotifier<GraphQLClient> init(String token) {
-    final AuthLink authLink = AuthLink(
-      getToken: () async => 'Bearer $token',
-    );
+  static ValueNotifier<GraphQLClient> init(String token) {
+    if (token.isNotEmpty) {
+      httpLink.defaultHeaders['authorization'] = 'Bearer $token';
+    }
+
     return ValueNotifier(
       GraphQLClient(
-        link: authLink.concat(httpLink),
+        link: httpLink,
         cache: GraphQLCache(),
       ),
     );
