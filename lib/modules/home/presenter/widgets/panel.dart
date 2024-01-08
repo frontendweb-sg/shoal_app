@@ -24,9 +24,7 @@ Widget panelCard(
     child: InkWell(
       borderRadius: BorderRadius.circular(16),
       highlightColor: AppColor.kCardHighlightColor,
-      onTap: () {
-        print("HI");
-      },
+      onTap: onPressed,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

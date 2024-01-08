@@ -12,7 +12,8 @@ class AppImage {
   static const imgLoginGrayIcon = "assets/images/login-gray-icon.svg";
   static const imgLoginIcon = "assets/images/login-icon.svg";
   static const imgMenuIcon = "assets/images/menu-icon.svg";
-  static const imgNotificationIcon = "assets/images/notification-icon";
+  static const imgNotificationIcon = "assets/images/notification-icon.svg";
+  static const imgNotificationIconPng = "assets/images/notification.png";
   static const imgScanIcon = "assets/images/scan-icon.svg";
   static const imgSendIcon = "assets/images/send-icon.svg";
   static const imgSharingIcon = "assets/images/sharing-icon.svg";

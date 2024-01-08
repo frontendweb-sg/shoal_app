@@ -24,6 +24,7 @@ class AppContent {
   static const strEnterEmail = "Enter your email";
   static const strPassword = "Password";
   static const strConfirmPassword = "Confirm password";
+  static const strSave = "Save";
   static const strName = "Name";
   static const strFieldRequired = "Field is required";
   static const strDontHaveAccount = "Don't have an account?";
@@ -36,13 +37,14 @@ class AppContent {
   static const strUploadIdentification = "Upload Form of Identification";
   static const strBrowseFile = "Browse file";
   static const strSubmit = "Submit";
-  static const strRequestSent = 'Your request has succesfully sent';
+  static const strRequestSent = 'Your request has successfully sent!';
   static const strApplyLoan = "Apply Loan";
   static const strApplyNPS = "Apply NPS";
   static const strRequest = "Request";
   static const strContact = "Contact";
   static const strClickToKnowMore = "Click to know more";
   static const strSharingCaring = "Sharing is caring!";
+  static const strContinue = "Continue";
   static const strShareContent =
       "Share the same account upto 5 members by adding them into your family list.";
 
