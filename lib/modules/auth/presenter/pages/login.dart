@@ -25,8 +25,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _auth = {
-    "userName": "pkumar",
-    "password": "Admin@123"
+    "userName": "",
+    "password": "",
+    "rememberMe": true,
   };
 
   void onSubmit() async {
@@ -97,49 +98,57 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           const SizedBox(
             height: 80,
           ),
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            textInputAction: TextInputAction.next,
-            style: Theme.of(context).textTheme.bodyMedium,
-            initialValue: _auth["userName"],
-            decoration: inputDecoration(
-              context,
-              hintText: AppContent.strEnterEmail,
-              imageIcon: AppImage.imgEmailIcon,
+          Semantics(
+            value: "username",
+            child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              style: Theme.of(context).textTheme.bodyMedium,
+              initialValue: _auth["userName"],
+              decoration: inputDecoration(
+                context,
+                hintText: AppContent.strEnterEmail,
+                imageIcon: AppImage.imgEmailIcon,
+              ),
+              onSaved: (value) {
+                _auth["userName"] = value!;
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppContent.strFieldRequired;
+                }
+                return null;
+              },
+              key: const Key("username"),
             ),
-            onSaved: (value) {
-              _auth["userName"] = value!;
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppContent.strFieldRequired;
-              }
-              return null;
-            },
           ),
           const SizedBox(
             height: 28.0,
           ),
-          TextFormField(
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.visiblePassword,
-            style: Theme.of(context).textTheme.bodyMedium,
-            initialValue: _auth['password'],
-            obscureText: true,
-            decoration: inputDecoration(
-              context,
-              hintText: AppContent.strPassword,
-              imageIcon: AppImage.imgLock,
+          Semantics(
+            value: "password",
+            child: TextFormField(
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.visiblePassword,
+              style: Theme.of(context).textTheme.bodyMedium,
+              initialValue: _auth['password'],
+              obscureText: true,
+              decoration: inputDecoration(
+                context,
+                hintText: AppContent.strPassword,
+                imageIcon: AppImage.imgLock,
+              ),
+              onSaved: (value) {
+                _auth["password"] = value!;
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return AppContent.strFieldRequired;
+                }
+                return null;
+              },
+              key: const Key("password"),              
             ),
-            onSaved: (value) {
-              _auth["password"] = value!;
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppContent.strFieldRequired;
-              }
-              return null;
-            },
           ),
           const SizedBox(
             height: 15.0,
@@ -149,20 +158,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
-                child: CheckboxListTile(
-                  dense: true,
-                  contentPadding: const EdgeInsets.all(0.0),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  title: Text(
-                    AppContent.strRememberMe,
-                    style: Theme.of(context).textTheme.displaySmall!,
+                child: Semantics(
+                  value: "rememberme",
+                  child: CheckboxListTile(
+                    dense: true,
+                    contentPadding: const EdgeInsets.all(0.0),
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: Text(
+                      AppContent.strRememberMe,
+                      style: Theme.of(context).textTheme.displaySmall!,
+                    ),
+                    value: _rememberMe,
+                    onChanged: (v) {
+                      setState(() {
+                        _rememberMe = v!;
+                      });
+                    },
+                    key: const Key("rememberme"),
                   ),
-                  value: _rememberMe,
-                  onChanged: (v) {
-                    setState(() {
-                      _rememberMe = v!;
-                    });
-                  },
                 ),
               ),
               TextButton(
