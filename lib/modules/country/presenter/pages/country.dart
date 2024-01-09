@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
-import 'package:shoal_app/modules/country/business/entities/country.dart';
 import 'package:shoal_app/modules/country/presenter/pages/add_country.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
-import 'package:shoal_app/shared/widgets/button.dart';
+import 'package:shoal_app/shared/providers/error.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
-import 'package:shoal_app/shared/widgets/toaster.dart';
-import 'package:shoal_app/shared/widgets/wrapper.dart';
 
 class CountryScreen extends ConsumerStatefulWidget {
   const CountryScreen({super.key});
@@ -42,16 +38,16 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
     super.dispose();
   }
 
+  void onOpenModal() {
+    showModalBottomSheet(
+      context: context,
+      builder: (buildder) => const AddCountry(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final data = ref.watch(countryProvider);
-
-    void onOpenModal() {
-      showModalBottomSheet(
-        context: context,
-        builder: (buildder) => const AddCountry(),
-      );
-    }
 
     return Scaffold(
       appBar: Navbar(

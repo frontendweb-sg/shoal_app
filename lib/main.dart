@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shoal_app/config/theme/colors.dart';
+
 import 'package:shoal_app/config/theme/theme.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
@@ -8,13 +9,18 @@ import 'package:shoal_app/globals.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
+import 'package:shoal_app/shared/providers/error.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
-import 'package:flutter_driver/driver_extension.dart';
+import 'package:shoal_app/shared/widgets/toaster.dart';
+//import 'package:flutter_driver/driver_extension.dart';
 
 void main() async {
   // global cofiguration initialize
-  enableFlutterDriverExtension();
+
+  // enableFlutterDriverExtension();
+
   await Global.init();
+
   runApp(
     const ProviderScope(
       child: MyApp(),
