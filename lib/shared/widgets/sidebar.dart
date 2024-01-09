@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/utils/model/menu.dart';
+import 'package:shoal_app/globals.dart';
+import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
 
 class Sidebar extends ConsumerWidget {
@@ -78,14 +80,14 @@ class Sidebar extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () {
-              //Globals.storageService.logout();
-              // if (!Globals.storageService.userIsAuthenticated) {
-              //   Navigator.of(context).pushReplacement(
-              //     MaterialPageRoute(
-              //       builder: (bld) => const LoginScreen(),
-              //     ),
-              //   );
-              // }
+              Global.storage.logout();
+              if (!Global.storage.userIsAuthenticated) {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (bld) => const LoginScreen(),
+                  ),
+                );
+              }
             },
             child: const Text(
               "Logout",

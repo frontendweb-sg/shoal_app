@@ -24,7 +24,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _loading = false;
   bool _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _auth = {"userName": "", "password": ""};
+  final Map<String, dynamic> _auth = {
+    "userName": "pkumar",
+    "password": "Admin@123"
+  };
 
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {

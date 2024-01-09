@@ -36,8 +36,8 @@ class StorageService {
     return true;
   }
 
-  String getToken(String key) {
-    String? token = _preferences.getString(key);
+  String get getToken {
+    String? token = _preferences.getString(AppConstants.APP_AUTH_TOKEN);
     return token!;
   }
 
