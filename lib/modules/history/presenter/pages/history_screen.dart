@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/calender.dart';
 import 'package:shoal_app/shared/widgets/dropdown.dart';
 import 'package:shoal_app/shared/widgets/switchbutton.dart';
@@ -12,7 +13,7 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> { 
    final _formKey = GlobalKey<FormState>();
-   final Map<String, dynamic> formelements = {"Gender": false, "SelectedGender": 2, "Terms": false, "fruits": "mango", "name": "2", "itemsvalue": "Item 4"};
+   final Map<String, dynamic> formelements = {"Gender": false, "SelectedGender": 2, "Terms": false, "fruits": "orange", "name": "2", "itemsvalue": "Item 4"};
 
   void onSubmit() async {
     print(formelements);
@@ -145,7 +146,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
               
               TextField(
                       key: const Key("calender"),               
-                      controller: _textEditingController,                 
+                      controller: _textEditingController,               
                       decoration: const InputDecoration(                        
                           suffixIcon: Icon(Icons.calendar_today),
                           labelText: "DOB",
@@ -161,6 +162,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); 
                            setState(() {
                             _textEditingController.text = formattedDate;
+                            formelements["dob"] = formattedDate;
                           });                   
                         }                      
                       }),
@@ -178,7 +180,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     }).toList(),
                       onChanged: (newValue) {
                         setState(() { 
-                          formelements['items'] = newValue!; 
+                          formelements['itemsvalue'] = newValue!; 
                         }); 
                       }, 
                   ), 
@@ -188,8 +190,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                  const Text("enter Fruit name:"),
                 Autocomplete<String>(            
                   key: const Key("autocomplete"),  
-                  optionsBuilder: (TextEditingValue fruitTextEditingValue) { 
-              
+                  optionsBuilder: (TextEditingValue fruitTextEditingValue) {               
                 if (fruitTextEditingValue.text == '') { 
                   return const Iterable<String>.empty(); 
                 }
@@ -198,13 +199,26 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       .contains(fruitTextEditingValue.text.toLowerCase()); 
                 }); 
               },
+              fieldViewBuilder: (context, textEditingController,
+                        focusNode, onFieldSubmitted){
+                    textEditingController.text = formelements['fruits'];// You can use the next snip of code if you dont want the initial text to come when you use setState((){});  
+                    return TextFormField(                             
+                  controller: textEditingController,//uses fieldViewBuilder TextEditingController
+                   focusNode: focusNode,
+                );
+              },
               onSelected: (String value) { 
-                debugPrint('You just selected $value'); 
+                formelements['fruits'] = value; 
               }, 
                         ), 
               
                   const SizedBox(height: 30.0),  
-              
+                button(
+                      context,
+                      label: "Submit",
+                      onPressed: onSubmit,                    
+                    ),
+
               
               
                         ],
