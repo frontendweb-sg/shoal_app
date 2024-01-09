@@ -10,8 +10,11 @@ import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
+import 'package:flutter_driver/driver_extension.dart';
 
 void main() async {
+  // enableFlutterDriverExtension();
+  
   // global cofiguration initialize
   await Global.init();
 

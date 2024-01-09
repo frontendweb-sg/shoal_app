@@ -24,7 +24,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _loading = false;
   bool _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _auth = {"userName": "", "password": ""};
+  final Map<String, dynamic> _auth = {"userName": "", "password": "", "rememberMe": true};
 
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {
@@ -113,6 +113,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               }
               return null;
             },
+            key: const Key("username"),
           ),
           const SizedBox(
             height: 28.0,
@@ -137,6 +138,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               }
               return null;
             },
+            key: const Key("password"),
           ),
           const SizedBox(
             height: 15.0,
@@ -147,6 +149,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             children: [
               Expanded(
                 child: CheckboxListTile(
+                   key: const Key("rememberme"),
                   dense: true,
                   contentPadding: const EdgeInsets.all(0.0),
                   controlAffinity: ListTileControlAffinity.leading,
