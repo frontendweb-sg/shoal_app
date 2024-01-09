@@ -5,14 +5,14 @@ import 'package:shoal_app/globals.dart';
 
 import 'package:shoal_app/modules/auth/business/actions/login.dart';
 import 'package:shoal_app/modules/auth/business/entities/login_response_entity.dart';
-import 'package:shoal_app/modules/auth/business/interface/auth.dart';
+import 'package:shoal_app/modules/auth/business/repos/auth.dart';
 import 'package:shoal_app/modules/auth/presenter/providers/auth.dart';
 
 ///
 /// Login notifier
 ///
 class LoginNotifier extends StateNotifier<AsyncValue<LoginResponseEntity?>> {
-  final AuthInterface _auth;
+  final AuthRepo _auth;
   LoginNotifier(this._auth) : super(const AsyncValue.data(null));
 
   ///
@@ -20,29 +20,25 @@ class LoginNotifier extends StateNotifier<AsyncValue<LoginResponseEntity?>> {
   ///
   Future<void> login(Map<String, dynamic> payload) async {
     try {
-      // start loading
       state = const AsyncLoading();
 
-      // hit url for authenticating
       final response = await LoginAction(_auth).call(params: payload);
 
-      // store response success / failure in state
       state = response.fold(
-        (l) => AsyncValue.error(l, StackTrace.current),
-        (r) {
-          // set auth token in local storage
-          Global.storage.setValue(
-            AppConstants.APP_AUTH_TOKEN,
-            r.data!.accessToken,
-          );
+        (l) => AsyncValue.error(l.message, StackTrace.current),
+        (data) {
+          if (data.data != null) {
+            Global.storage.setValue(
+              AppConstants.APP_AUTH_TOKEN,
+              data.data!.accessToken,
+            );
+          }
 
-          // save success response in state
-          return AsyncValue.data(r);
+          return AsyncValue.data(data);
         },
       );
     } on Failure catch (error) {
-      // catch and store error
-      state = AsyncValue.error(error.message, StackTrace.current);
+      state = AsyncError(error.message, StackTrace.current);
     }
   }
 }

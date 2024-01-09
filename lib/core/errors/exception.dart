@@ -86,6 +86,7 @@ extension DataSourceExtension on DataSource {
 }
 
 Failure _handleError(DioException error) {
+  print(error);
   switch (error.type) {
     case DioExceptionType.cancel:
       return DataSource.cancel.getFailure();

@@ -7,7 +7,7 @@ import 'package:shoal_app/modules/auth/business/entities/register_response_entit
 /// Abstract class
 /// Abstract is simply a interface class
 ///
-abstract class AuthInterface {
+abstract class AuthRepo {
   Future<Either<Failure, LoginResponseEntity>> login(
       Map<String, dynamic> payload);
   Future<Either<Failure, RegisterResponseEntity>> register(

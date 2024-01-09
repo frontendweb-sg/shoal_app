@@ -24,30 +24,29 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _loading = false;
   bool _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
-  final Map<String, dynamic> _auth = {
-    "userName": "pkumar",
-    "password": "Admin@123"
-  };
+  final Map<String, dynamic> _auth = {"userName": "", "password": ""};
 
-  void onSubmit() async {
+  void onSubmit() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      try {
+        setState(() {
+          _loading = true;
+        });
 
-      setState(() {
-        _loading = true;
-      });
+        // api logic
+        ref.watch(loginProvider.notifier).login(_auth);
 
-      print(_auth);
-      // api logic
-      await ref.read(loginProvider.notifier).login(_auth);
+        setState(() {
+          _loading = false;
+        });
 
-      Future.delayed(const Duration(seconds: 10), () {
-        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-      });
-
-      setState(() {
-        _loading = false;
-      });
+        // Future.delayed(const Duration(seconds: 10), () {
+        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        // });
+      } catch (error) {
+        print(error);
+      }
     }
   }
 
@@ -57,6 +56,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       loginProvider,
       (previous, next) {
         if (next.hasValue) {
+          print('next $next');
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (build) => const HomeScreen(),
@@ -64,9 +64,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
         }
         if (next.hasError) {
-          setState(() {
-            _loading = false;
-          });
           toaster(context, msg: next.asError!.error.toString());
         }
       },

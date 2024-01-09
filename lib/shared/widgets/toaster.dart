@@ -7,7 +7,7 @@ void toaster(BuildContext context, {required String msg}) {
       showCloseIcon: true,
       backgroundColor: AppColor.kSnakbarBg,
       duration: const Duration(
-        seconds: 20,
+        seconds: 40,
       ),
       content: Text(msg),
     ),

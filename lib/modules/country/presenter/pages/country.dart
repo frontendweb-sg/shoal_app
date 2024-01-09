@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/modules/country/presenter/pages/add_country.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
-import 'package:shoal_app/shared/providers/error.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
 
 class CountryScreen extends ConsumerStatefulWidget {
@@ -64,17 +63,24 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
       body: RefreshIndicator(
           child: Container(
             child: data.whenOrNull(
-              data: (data) => ListView.builder(
-                itemCount: data!.length,
-                itemBuilder: (builder, index) => ListTile(
-                  leading: Container(
-                    width: 50,
-                    height: 50,
-                    color: AppColor.kLighterGreen,
-                  ),
-                  title: Text(data[index].name!),
-                ),
-              ),
+              data: (data) => data!.isEmpty
+                  ? const Center(
+                      child: Column(
+                      children: [
+                        Text("No data found"),
+                      ],
+                    ))
+                  : ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (builder, index) => ListTile(
+                        leading: Container(
+                          width: 50,
+                          height: 50,
+                          color: AppColor.kLighterGreen,
+                        ),
+                        title: Text(data[index].name!),
+                      ),
+                    ),
               error: (error, stackTrace) => Text(error.toString()),
               loading: () {
                 return const Center(
