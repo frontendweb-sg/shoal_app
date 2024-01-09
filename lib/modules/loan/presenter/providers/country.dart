@@ -12,11 +12,18 @@ class CountryNotifier extends StateNotifier<CountryState> {
     try {
       // DioClient dioClient = DioClient(AppConstants.APP_BASE_GRAPHQL_URL);
       var response = await graphQLClient.query(
-        QueryOptions(
-          document: gql(query),
-        ),
+        QueryOptions(document: gql(r'''
+            query {
+              characters{
+              results{
+                id
+                name
+              }
+              }
+            }
+'''), variables: const {}),
       );
-      print(response);
+      print('r----------- $response');
 
       List<dynamic> data = response.data!["countries"];
       print(data);

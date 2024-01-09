@@ -47,7 +47,7 @@ class _PersonalDetailsState extends ConsumerState<PersonalDetails> {
   };
   bool _checked = false;
   void onSumit() async {
-    await ref.read(countryProvider.notifier).getAllCountry(queryDoc);
+    ref.read(countryProvider.notifier).getAllCountry(queryDoc);
     // if (_personalDetailForm.currentState!.validate()) {
     //   _personalDetailForm.currentState!.save();
     //   print(_form);

@@ -5,17 +5,16 @@ import 'package:shoal_app/config/theme/theme.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
 import 'package:shoal_app/globals.dart';
-
 import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
-import 'package:shoal_app/modules/loan/presenter/pages/personal_detail.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
+import 'package:flutter_driver/driver_extension.dart';
 
 void main() async {
   // global cofiguration initialize
+  enableFlutterDriverExtension();
   await Global.init();
-
   runApp(
     const ProviderScope(
       child: MyApp(),

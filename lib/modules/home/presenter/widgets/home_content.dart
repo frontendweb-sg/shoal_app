@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/modules/country/presenter/pages/country.dart';
 import 'package:shoal_app/modules/home/presenter/widgets/horizontal_panel.dart';
 import 'package:shoal_app/modules/home/presenter/widgets/panel.dart';
 import 'package:shoal_app/modules/loan/presenter/pages/personal_detail.dart';
@@ -44,7 +45,7 @@ class HomeScreenContent extends ConsumerWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (builder) => const PersonalDetails(),
+                            builder: (builder) => const CountryScreen(),
                           ),
                         );
                       },
