@@ -4,8 +4,9 @@ import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
-  const Navbar({super.key, this.title});
+  const Navbar({super.key, this.title, this.actions});
 
+  final List<Widget>? actions;
   final String? title;
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
         label: title ?? '',
       ),
       actions: [
+        ...?actions,
         IconButton(
           onPressed: () {},
           icon: const ImageIcon(

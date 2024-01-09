@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './colors.dart';
 
 InputDecoration inputDecoration(BuildContext context,
-    {String? hintText, IconData? icon, String? imageIcon}) {
+    {String? hintText, IconData? icon, String? imageIcon = ''}) {
   return InputDecoration(
     hintText: hintText,
     prefixIcon:

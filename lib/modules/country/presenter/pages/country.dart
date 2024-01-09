@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/modules/country/business/entities/country.dart';
+import 'package:shoal_app/modules/country/presenter/pages/add_country.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
@@ -45,8 +46,25 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
   Widget build(BuildContext context) {
     final data = ref.watch(countryProvider);
 
+    void onOpenModal() {
+      showModalBottomSheet(
+        context: context,
+        builder: (buildder) => const AddCountry(),
+      );
+    }
+
     return Scaffold(
-      appBar: const Navbar(),
+      appBar: Navbar(
+        title: "Country",
+        actions: [
+          IconButton(
+            onPressed: () {
+              onOpenModal();
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
       body: RefreshIndicator(
           child: Container(
             child: data.whenOrNull(
