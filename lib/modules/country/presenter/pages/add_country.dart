@@ -1,11 +1,8 @@
-import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
-import 'package:shoal_app/core/errors/failure.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/params/params.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
@@ -14,9 +11,9 @@ import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/error.dart';
 
 class AddCountry extends ConsumerStatefulWidget {
-  const AddCountry({
-    super.key,
-  });
+  const AddCountry({super.key, this.onSuccess});
+
+  final Function()? onSuccess;
 
   @override
   ConsumerState<AddCountry> createState() {
@@ -29,6 +26,7 @@ class _AddCountry extends ConsumerState<AddCountry> {
   final List<String> countyCodes = ['AD', 'AE', 'AG', 'USA', "INDIA"];
   String _cCode = "";
   String _name = "";
+  bool _loading = false;
 
   _AddCountry() {
     _cCode = 'USA';
@@ -41,6 +39,11 @@ class _AddCountry extends ConsumerState<AddCountry> {
   void onAddCountry() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
+      setState(() {
+        _loading = true;
+      });
+
       const queryDoc = r'''
           mutation($country: CountryCreateInput!) {
             createCountry(country: $country) {
@@ -50,7 +53,7 @@ class _AddCountry extends ConsumerState<AddCountry> {
         }
         ''';
 
-      await ref.read(countryProvider.notifier).addCountry(
+      bool value = await ref.read(countryProvider.notifier).addCountry(
             MutationParam(
               document: queryDoc,
               variables: {
@@ -61,6 +64,13 @@ class _AddCountry extends ConsumerState<AddCountry> {
               },
             ),
           );
+
+      setState(() {
+        _loading = false;
+      });
+      if (value) {
+        widget.onSuccess!();
+      }
     }
   }
 
@@ -128,8 +138,14 @@ class _AddCountry extends ConsumerState<AddCountry> {
             ),
             button(
               context,
-              label: AppContent.strSave,
               onPressed: onAddCountry,
+              child: _loading
+                  ? const CircularProgressIndicator()
+                  : textBodyLarge(
+                      context,
+                      label: AppContent.strSave,
+                      color: AppColor.kWhite,
+                    ),
             ),
           ],
         ),

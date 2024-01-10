@@ -49,7 +49,7 @@ class HomeScreenContent extends ConsumerWidget {
                           ),
                         );
                       },
-                      label: AppContent.strApplyLoan,
+                      label: 'Available country',
                     ),
                     panelCard(
                       context,

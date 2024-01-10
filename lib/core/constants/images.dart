@@ -25,6 +25,7 @@ class AppImage {
   static const imgWalletTabIcon = "assets/images/wallet-tab-icon.svg";
   static const imgInfoGrayIcon = "assets/images/info-gray-icon.svg";
 
+  static const imgNoImage = "assets/images/no-image.jpg";
   static const imgHomeScreenBg = "assets/images/home-top-bg.png";
   static const imgCreditCardIcon = "assets/images/credit-card-Icon.png";
   static const imgUserDollarIcon = "assets/images/user-dollar-icon.png";

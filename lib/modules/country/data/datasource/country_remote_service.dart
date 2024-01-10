@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/core/params/params.dart';
 import 'package:shoal_app/modules/country/data/models/country_model.dart';

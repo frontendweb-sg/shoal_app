@@ -28,6 +28,7 @@ class CountryNotifier extends StateNotifier<AsyncValue<List<CountryEntity>>> {
           document: query,
         ),
       );
+
       state = response.fold(
         (l) => AsyncValue.error(l, StackTrace.current),
         (r) => AsyncValue.data(r),
@@ -38,8 +39,33 @@ class CountryNotifier extends StateNotifier<AsyncValue<List<CountryEntity>>> {
   }
 
   ///
+  /// Get all country
+  Future<void> getRefreshData(String query) async {
+    try {
+      state = const AsyncLoading();
+
+      final response = await countryRepo.getAllCountry(
+        QueryParam(
+          document: query,
+        ),
+      );
+      state = response.fold(
+        (l) => AsyncValue.error(l, StackTrace.current),
+        (r) => AsyncValue.data(r),
+      );
+
+      state = state.copyWithPrevious(
+        state,
+        isRefresh: true,
+      );
+    } on Failure catch (error) {
+      state = AsyncValue.error(error.message, StackTrace.current);
+    }
+  }
+
+  ///
   /// Add country
-  Future<void> addCountry(MutationParam mutationParam) async {
+  Future<bool> addCountry(MutationParam mutationParam) async {
     try {
       var response = await countryRepo.addCountry(
         MutationParam(
@@ -51,13 +77,56 @@ class CountryNotifier extends StateNotifier<AsyncValue<List<CountryEntity>>> {
       response.fold(
         (l) {
           failure.state = Failure(message: l.message, statusCode: l.statusCode);
+          return false;
         },
-        (r) => state = AsyncValue.data([...state.asData!.value, ...[]]),
+        (r) async {
+          state = AsyncValue.data([r as CountryEntity, ...state.value!]);
+        },
       );
+
+      state = state.copyWithPrevious(
+        state,
+        isRefresh: true,
+      );
+
+      return true;
     } catch (error) {
       failure.state = Failure(message: error.toString(), statusCode: 400);
+      return false;
     }
-    // response.foldRight(z, (r, previous) => null);
+  }
+
+  ///
+  /// Delete
+  Future<bool> deleteCountry(MutationParam mutationParam) async {
+    try {
+      var response = await countryRepo.deleteCountry(
+        MutationParam(
+          document: mutationParam.document,
+          variables: mutationParam.variables,
+        ),
+      );
+
+      response.fold((l) {
+        failure.state = Failure(message: l.message, statusCode: l.statusCode);
+        return false;
+      }, (r) async {
+        state = AsyncValue.data([
+          ...state.value!.where(
+            (element) => element.id != mutationParam.variables['countryId'],
+          )
+        ]);
+      });
+
+      state = state.copyWithPrevious(
+        state,
+        isRefresh: true,
+      );
+      return true;
+    } catch (error) {
+      failure.state = Failure(message: error.toString(), statusCode: 400);
+      return false;
+    }
   }
 }
 

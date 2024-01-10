@@ -46,8 +46,8 @@ class LoginNotifier extends StateNotifier<AsyncValue<LoginResponseEntity?>> {
 ///
 /// Login provider
 ///
-final loginProvider =
-    StateNotifierProvider<LoginNotifier, AsyncValue<LoginResponseEntity?>>(
+final loginProvider = StateNotifierProvider.autoDispose<LoginNotifier,
+    AsyncValue<LoginResponseEntity?>>(
   (ref) => LoginNotifier(
     ref.watch(authImpProvider),
   ),

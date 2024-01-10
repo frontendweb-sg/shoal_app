@@ -1,8 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/core/graphql/config.dart';
-import 'package:shoal_app/core/utils/storage_service.dart';
-import 'package:shoal_app/globals.dart';
 
 // final graphqlClientProvider = Provider<GraphQLClient>(
 //   (ref) {
@@ -23,6 +21,5 @@ import 'package:shoal_app/globals.dart';
 
 final graphqlClientProvider = Provider<GraphQLClient>((ref) {
   GraphQlConfig config = GraphQlConfig();
-
   return config.init();
 });
