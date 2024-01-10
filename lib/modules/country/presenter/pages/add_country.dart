@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
@@ -25,6 +26,8 @@ class _AddCountry extends ConsumerState<AddCountry> {
   final List<String> countyCodes = ['AD', 'AE', 'AG', 'USA', "INDIA"];
   String _cCode = "";
   String _name = "";
+  bool _loading = false;
+  String _message = "";
 
   _AddCountry() {
     _cCode = 'USA';
@@ -37,6 +40,11 @@ class _AddCountry extends ConsumerState<AddCountry> {
   void onAddCountry() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
+      setState(() {
+        _loading = true;
+      });
+
       const queryDoc = r'''
           mutation($country: CountryCreateInput!) {
             createCountry(country: $country) {
@@ -46,7 +54,7 @@ class _AddCountry extends ConsumerState<AddCountry> {
         }
         ''';
 
-      await ref.read(countryProvider.notifier).addCountry(
+      bool value = await ref.read(countryProvider.notifier).addCountry(
             MutationParam(
               document: queryDoc,
               variables: {
@@ -57,6 +65,14 @@ class _AddCountry extends ConsumerState<AddCountry> {
               },
             ),
           );
+
+      setState(() {
+        _loading = false;
+      });
+      if (value) {
+        _message = "Country saved successfully";
+        Navigator.of(context).pop();
+      }
     }
   }
 
@@ -124,8 +140,14 @@ class _AddCountry extends ConsumerState<AddCountry> {
             ),
             button(
               context,
-              label: AppContent.strSave,
               onPressed: onAddCountry,
+              child: _loading
+                  ? const CircularProgressIndicator()
+                  : textBodyLarge(
+                      context,
+                      label: AppContent.strSave,
+                      color: AppColor.kWhite,
+                    ),
             ),
           ],
         ),

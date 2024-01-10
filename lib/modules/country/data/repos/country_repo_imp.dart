@@ -23,20 +23,22 @@ class CountryRepoImp extends CountryRepo {
   }
 
   @override
-  Future<Either<Failure, void>> addCountry(MutationParam mutationParam) async {
+  Future<Either<Failure, CountryModel>> addCountry(
+      MutationParam mutationParam) async {
     try {
       final response = await _remoteService.addCountry(mutationParam);
 
-      if (response.exception!.graphqlErrors.isNotEmpty) {
-        return Left(
-          Failure(
-            message: response.exception!.graphqlErrors[0].message,
-            statusCode: 400,
-          ),
-        );
+      if (response.data!['createCountry'] != null) {
+        final data = CountryModel.fromJson(response.data!["createCountry"]);
+        return Right(data);
       }
-      Map<String, dynamic> data = response.data!;
-      return Right(data);
+
+      return Left(
+        Failure(
+          message: response.exception!.graphqlErrors[0].message,
+          statusCode: 400,
+        ),
+      );
     } on GraphQLError catch (error) {
       throw left(error);
     }

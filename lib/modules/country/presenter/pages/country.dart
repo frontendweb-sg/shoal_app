@@ -75,7 +75,8 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
         backgroundColor: AppColor.kWhite,
         onRefresh: () async {
           Future.delayed(const Duration(seconds: 10), () {
-            ref.refresh(countryProvider.notifier).getRefreshData(queryDoc);
+            ref.invalidate(countryProvider);
+            //ref.refresh(countryProvider.notifier).getRefreshData(queryDoc);
           });
         },
         child: Container(
@@ -112,12 +113,18 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
 
   Widget listItem({required String label, String? cCode, String? id}) {
     return Dismissible(
-      direction: DismissDirection.startToEnd,
+      direction: DismissDirection.endToStart,
       key: ValueKey(label),
       background: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        alignment: Alignment.centerRight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
-          color: const Color.fromARGB(9, 250, 48, 48),
+          color: AppColor.kRed,
+        ),
+        child: const Icon(
+          Icons.delete,
+          color: AppColor.kWhite,
         ),
       ),
       onDismissed: (DismissDirection direction) {},

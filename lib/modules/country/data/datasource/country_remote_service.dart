@@ -19,8 +19,6 @@ class CountryRemoteService {
         ),
       );
 
-      print('result referesed');
-
       if (result.data == null) {
         return [];
       }
