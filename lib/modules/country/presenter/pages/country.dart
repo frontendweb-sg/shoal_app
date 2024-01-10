@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
+import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/modules/country/presenter/pages/add_country.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
@@ -64,12 +65,16 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
           child: Container(
             child: data.whenOrNull(
               data: (data) => data!.isEmpty
-                  ? const Center(
-                      child: Column(
-                      children: [
-                        Text("No data found"),
-                      ],
-                    ))
+                  ? Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: AppColor.kWhite,
+                      child: Center(
+                        child: Image.asset(
+                          AppImage.imgNoImage,
+                        ),
+                      ),
+                    )
                   : ListView.builder(
                       itemCount: data.length,
                       itemBuilder: (builder, index) => ListTile(

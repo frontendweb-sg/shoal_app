@@ -1,11 +1,7 @@
-import 'dart:isolate';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
-import 'package:shoal_app/core/errors/failure.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/params/params.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
