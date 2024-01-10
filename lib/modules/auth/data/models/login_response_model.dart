@@ -7,11 +7,11 @@ part 'login_response_model.g.dart';
 @JsonSerializable(converters: [LoginDataConverter()])
 class LoginResponseModel extends LoginResponseEntity {
   const LoginResponseModel({
-    required super.apiResponseStatus,
-    required super.httpStatus,
-    required super.message,
-    required super.data,
-    required super.errors,
+    super.apiResponseStatus,
+    super.httpStatus,
+    super.message,
+    super.data,
+    super.errors,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) =>

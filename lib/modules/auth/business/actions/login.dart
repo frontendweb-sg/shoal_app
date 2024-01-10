@@ -2,13 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:shoal_app/core/errors/failure.dart';
 import 'package:shoal_app/core/usecases/usecase.dart';
 import 'package:shoal_app/modules/auth/business/entities/login_response_entity.dart';
-import 'package:shoal_app/modules/auth/business/interface/auth.dart';
+import 'package:shoal_app/modules/auth/business/repos/auth.dart';
 
 ///
 /// Login usecase
 ///
 class LoginAction extends UseCase<LoginResponseEntity, Map<String, dynamic>> {
-  final AuthInterface _auth;
+  final AuthRepo _auth;
 
   LoginAction(this._auth);
 

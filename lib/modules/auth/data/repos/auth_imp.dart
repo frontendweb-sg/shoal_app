@@ -2,32 +2,35 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:shoal_app/core/errors/exception.dart';
 import 'package:shoal_app/core/errors/failure.dart';
-import 'package:shoal_app/modules/auth/business/entities/login_response_entity.dart';
-import 'package:shoal_app/modules/auth/business/interface/auth.dart';
+import 'package:shoal_app/modules/auth/business/repos/auth.dart';
 import 'package:shoal_app/modules/auth/data/datasource/auth_datasource.dart';
+import 'package:shoal_app/modules/auth/data/models/login_response_model.dart';
 import 'package:shoal_app/modules/auth/data/models/register_response_model.dart';
 
-class AuthImplementation extends AuthInterface {
+class AuthRepoImp extends AuthRepo {
   final AuthDatasource _authDatasource;
-  AuthImplementation(this._authDatasource);
+  AuthRepoImp(this._authDatasource);
 
   @override
-  Future<Either<Failure, LoginResponseEntity>> login(
+  Future<Either<Failure, LoginResponseModel>> login(
       Map<String, dynamic> payload) async {
     try {
       final httpResponse = await _authDatasource.login(payload);
-      if (httpResponse.response.statusCode == HttpStatus.ok) {
-        return Right(httpResponse.data);
-      } else {
-        return Left(httpResponse.response.data);
+
+      if (httpResponse.data.apiResponseStatus == 'Failed') {
+        return Left(
+          Failure(
+            statusCode: 106,
+            message: httpResponse.data.errors![0]['devMessage'],
+          ),
+        );
       }
+
+      return Right(httpResponse.data);
     } on DioException catch (error) {
-      if (kDebugMode) {
-        print(error);
-      }
-      throw Left(error);
+      return Left(ErrorHandler.handle(error).failure);
     }
   }
 
@@ -39,13 +42,10 @@ class AuthImplementation extends AuthInterface {
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return Right(httpResponse.data);
       } else {
-        return Left(httpResponse.response.data);
+        return Left(ErrorHandler.handle(httpResponse.response.data).failure);
       }
     } on DioException catch (error) {
-      if (kDebugMode) {
-        print(error);
-      }
-      throw Left(error);
+      return Left(ErrorHandler.handle(error).failure);
     }
   }
 }

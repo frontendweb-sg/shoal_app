@@ -23,6 +23,7 @@ class AppContent {
   static const strHistory = "History";
   static const strWallet = "Wallet";
   static const strAccount = "Account";
+  static const strAddCountry = "Add country";
   static const strForgotText = "Forgot password";
   static const strRememberMe = 'Remember me';
   static const strEnterEmail = "Enter your email";

@@ -30,6 +30,24 @@ class LoginDataConverter
   }
 }
 
+class ErrorConverter
+    implements JsonConverter<List<ErrorEntiry>?, List<Map<String, dynamic>>?> {
+  const ErrorConverter();
+
+  @override
+  List<ErrorEntiry>? fromJson(List<Map<String, dynamic>>? json) {
+    if (json == null) {
+      return null;
+    }
+    return json.map((e) => ErrorModel.fromJson(e)).toList();
+  }
+
+  @override
+  List<Map<String, dynamic>>? toJson(List<ErrorEntiry>? object) {
+    throw UnimplementedError();
+  }
+}
+
 ///
 /// Register data converter
 class RegisterDataConverter
@@ -52,3 +70,6 @@ class RegisterDataConverter
     return RegisterDataModel(message: json.message).toJson();
   }
 }
+
+///
+/// Register data converter

@@ -30,3 +30,30 @@ class RegisterDataEntity extends Equatable {
   @override
   List<Object?> get props => [message];
 }
+
+class ErrorEntiry extends Equatable {
+  final String? userMessage;
+  final int? errorCode;
+  final String? devMessage;
+  final String? path;
+  final int? rowNumber;
+  final String? value;
+
+  const ErrorEntiry(
+      {this.userMessage,
+      this.errorCode,
+      this.devMessage,
+      this.path,
+      this.rowNumber,
+      this.value});
+
+  @override
+  List<Object?> get props => [
+        userMessage,
+        errorCode,
+        devMessage,
+        path,
+        rowNumber,
+        value,
+      ];
+}

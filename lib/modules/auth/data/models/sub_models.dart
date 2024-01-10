@@ -20,6 +20,23 @@ class LoginDataModel extends LoginDataEntity {
   Map<String, dynamic> toJson() => _$LoginDataModelToJson(this);
 }
 
+@JsonSerializable()
+class ErrorModel extends ErrorEntiry {
+  const ErrorModel({
+    super.devMessage,
+    super.errorCode,
+    super.path,
+    super.rowNumber,
+    super.userMessage,
+    super.value,
+  });
+
+  factory ErrorModel.fromJson(Map<String, dynamic> json) =>
+      _$ErrorModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ErrorModelToJson(this);
+}
+
 ///
 /// Register data model
 ///

@@ -10,10 +10,17 @@ part 'auth_datasource.g.dart';
 abstract class AuthDatasource {
   factory AuthDatasource(Dio dio) = _AuthDatasource;
 
+  ///
+  /// Login
   @POST(AppConstants.APP_LOGIN_URL)
   Future<HttpResponse<LoginResponseModel>> login(
-      @Body() Map<String, dynamic> payload);
+    @Body() Map<String, dynamic> payload,
+  );
+
+  ///
+  /// Register
   @POST(AppConstants.APP_REGISTER_URL)
   Future<HttpResponse<RegisterResponseModel>> register(
-      @Body() Map<String, dynamic> payload);
+    @Body() Map<String, dynamic> payload,
+  );
 }
