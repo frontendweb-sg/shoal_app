@@ -45,8 +45,25 @@ class CountryRepoImp extends CountryRepo {
   }
 
   @override
-  Future<Either<Failure, void>> deleteCountry(MutationParam mutationParam) {
-    throw UnimplementedError();
+  Future<Either<Failure, String>> deleteCountry(
+      MutationParam mutationParam) async {
+    try {
+      final response = await _remoteService.addCountry(mutationParam);
+
+      if (response.data!['deleteCountry'] != null) {
+        final data = response.data!['deleteCountry'];
+        return Right(data);
+      }
+
+      return Left(
+        Failure(
+          message: response.exception!.graphqlErrors[0].message,
+          statusCode: 400,
+        ),
+      );
+    } on GraphQLError catch (error) {
+      throw left(error);
+    }
   }
 
   @override

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/core/constants/images.dart';
+import 'package:shoal_app/core/params/params.dart';
 import 'package:shoal_app/modules/country/presenter/pages/add_country.dart';
 import 'package:shoal_app/modules/country/presenter/providers/country.dart';
 import 'package:shoal_app/shared/widgets/navbar.dart';
 import 'package:shoal_app/core/extensions/capitalize.dart';
+import 'package:shoal_app/shared/widgets/toaster.dart';
 
 class CountryScreen extends ConsumerStatefulWidget {
   const CountryScreen({super.key});
@@ -41,18 +43,43 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
     super.dispose();
   }
 
-  void onOpenModal() {
-    showModalBottomSheet(
-      context: context,
-      builder: (buildder) => const AddCountry(),
+  void onSuccess() {
+    Navigator.of(context).pop(true);
+    toaster(context,
+        msg: 'Country added successfully!', color: AppColor.kGreen);
+  }
+
+  void onDelete(String id) {
+    const queryDoc = r'''
+      mutation($countryId: ID!) {
+        deleteCountry(countryId: $countryId) 
+      }
+    ''';
+
+    ref
+        .watch(countryProvider.notifier)
+        .deleteCountry(
+          MutationParam(
+            document: queryDoc,
+            variables: {'countryId': id},
+          ),
+        )
+        .then(
+      (value) {
+        toaster(
+          context,
+          msg: 'Country deleted!',
+          color: AppColor.kGreen,
+        );
+      },
     );
   }
 
-  Future<void> onReferesh() async {
-    Future.delayed(const Duration(seconds: 5), () async {
-      ref.read(countryProvider.notifier).getRefreshData(queryDoc);
-      await ref.read(countryProvider.notifier).getRefreshData(queryDoc);
-    });
+  void onOpenModal() {
+    showModalBottomSheet(
+      context: context,
+      builder: (buildder) => AddCountry(onSuccess: onSuccess),
+    );
   }
 
   @override
@@ -97,6 +124,8 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
                     itemCount: data.length,
                     itemBuilder: (builder, index) => listItem(
                       label: data[index].name!,
+                      id: data[index].id,
+                      cCode: data[index].isoCode,
                     ),
                   ),
             error: (error, stackTrace) => Text(error.toString()),
@@ -127,7 +156,9 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
           color: AppColor.kWhite,
         ),
       ),
-      onDismissed: (DismissDirection direction) {},
+      onDismissed: (DismissDirection direction) {
+        onDelete(id!);
+      },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10.0),
         padding: const EdgeInsets.all(10.0),

@@ -94,7 +94,39 @@ class CountryNotifier extends StateNotifier<AsyncValue<List<CountryEntity>>> {
       failure.state = Failure(message: error.toString(), statusCode: 400);
       return false;
     }
-    // response.foldRight(z, (r, previous) => null);
+  }
+
+  ///
+  /// Delete
+  Future<bool> deleteCountry(MutationParam mutationParam) async {
+    try {
+      var response = await countryRepo.deleteCountry(
+        MutationParam(
+          document: mutationParam.document,
+          variables: mutationParam.variables,
+        ),
+      );
+
+      response.fold((l) {
+        failure.state = Failure(message: l.message, statusCode: l.statusCode);
+        return false;
+      }, (r) async {
+        state = AsyncValue.data([
+          ...state.value!.where(
+            (element) => element.id != mutationParam.variables['countryId'],
+          )
+        ]);
+      });
+
+      state = state.copyWithPrevious(
+        state,
+        isRefresh: true,
+      );
+      return true;
+    } catch (error) {
+      failure.state = Failure(message: error.toString(), statusCode: 400);
+      return false;
+    }
   }
 }
 

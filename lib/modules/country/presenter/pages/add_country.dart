@@ -11,9 +11,9 @@ import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/error.dart';
 
 class AddCountry extends ConsumerStatefulWidget {
-  const AddCountry({
-    super.key,
-  });
+  const AddCountry({super.key, this.onSuccess});
+
+  final Function()? onSuccess;
 
   @override
   ConsumerState<AddCountry> createState() {
@@ -27,7 +27,6 @@ class _AddCountry extends ConsumerState<AddCountry> {
   String _cCode = "";
   String _name = "";
   bool _loading = false;
-  String _message = "";
 
   _AddCountry() {
     _cCode = 'USA';
@@ -70,8 +69,7 @@ class _AddCountry extends ConsumerState<AddCountry> {
         _loading = false;
       });
       if (value) {
-        _message = "Country saved successfully";
-        Navigator.of(context).pop();
+        widget.onSuccess!();
       }
     }
   }
