@@ -38,6 +38,26 @@ class CountryNotifier extends StateNotifier<AsyncValue<List<CountryEntity>>> {
   }
 
   ///
+  /// Get all country
+  Future<void> getRefreshData(String query) async {
+    try {
+      state = const AsyncLoading();
+
+      final response = await countryRepo.getAllCountry(
+        QueryParam(
+          document: query,
+        ),
+      );
+      state = response.fold(
+        (l) => AsyncValue.error(l, StackTrace.current),
+        (r) => AsyncValue.data(r),
+      );
+    } on Failure catch (error) {
+      state = AsyncValue.error(error.message, StackTrace.current);
+    }
+  }
+
+  ///
   /// Add country
   Future<void> addCountry(MutationParam mutationParam) async {
     try {

@@ -26,27 +26,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final Map<String, dynamic> _auth = {"userName": "", "password": ""};
 
-  void onSubmit() {
+  void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      try {
-        setState(() {
-          _loading = true;
-        });
 
-        // api logic
-        ref.watch(loginProvider.notifier).login(_auth);
+      setState(() {
+        _loading = true;
+      });
 
-        setState(() {
-          _loading = false;
-        });
+      // api logic
+      await ref.watch(loginProvider.notifier).login(_auth);
 
-        // Future.delayed(const Duration(seconds: 10), () {
-        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        // });
-      } catch (error) {
-        print(error);
-      }
+      Future.delayed(const Duration(seconds: 10), () {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      });
+
+      setState(() {
+        _loading = false;
+      });
     }
   }
 
@@ -56,7 +53,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       loginProvider,
       (previous, next) {
         if (next.hasValue) {
-          print('next $next');
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (build) => const HomeScreen(),
@@ -64,7 +60,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
         }
         if (next.hasError) {
-          toaster(context, msg: next.asError!.error.toString());
+          toaster(
+            context,
+            msg: next.asError!.error.toString(),
+          );
         }
       },
     );
