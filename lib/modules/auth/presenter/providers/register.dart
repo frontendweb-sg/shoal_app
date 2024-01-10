@@ -39,7 +39,7 @@ class RegisterNotifier
 ///
 /// Register provider
 ///
-final registerProvider = StateNotifierProvider<RegisterNotifier,
+final registerProvider = StateNotifierProvider.autoDispose<RegisterNotifier,
     AsyncValue<RegisterResponseEntity?>>(
   (ref) => RegisterNotifier(
     ref.watch(authImpProvider),

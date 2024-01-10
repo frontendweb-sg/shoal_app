@@ -51,6 +51,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ref.listen(
       loginProvider,

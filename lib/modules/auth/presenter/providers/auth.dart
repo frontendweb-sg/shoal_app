@@ -8,7 +8,7 @@ import 'package:shoal_app/shared/providers/dio.dart';
 /// Auth service provider
 /// Initialize service for interact with api
 ///
-final authDatasourceProvider = Provider<AuthDatasource>(
+final authDatasourceProvider = Provider.autoDispose<AuthDatasource>(
   (ref) => AuthDatasource(
     ref.watch(dioClientProvider),
   ),
@@ -18,7 +18,7 @@ final authDatasourceProvider = Provider<AuthDatasource>(
 /// Auth repository provider
 /// Initialize repository to interact with auth service
 ///
-final authImpProvider = Provider<AuthRepo>(
+final authImpProvider = Provider.autoDispose<AuthRepo>(
   (ref) => AuthRepoImp(
     ref.watch(authDatasourceProvider),
   ),
