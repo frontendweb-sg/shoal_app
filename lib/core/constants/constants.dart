@@ -13,4 +13,5 @@ class AppConstants {
   // constants
   static const STORAGE_DEVICE_OPEN_FIRST_TIME = 'first_time';
   static const APP_AUTH_TOKEN = 'app_token';
+  static const APP_SESSION_TIME_OUT = 'session_timeout';
 }

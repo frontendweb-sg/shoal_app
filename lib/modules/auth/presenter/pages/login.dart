@@ -5,11 +5,13 @@ import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/core/session/session.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/forgot_password.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
 import 'package:shoal_app/modules/auth/presenter/providers/login.dart';
 import 'package:shoal_app/modules/auth/presenter/widgets/auth_wrapper.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
+import 'package:shoal_app/shared/providers/session.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/toaster.dart';
 
@@ -29,6 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      ref.watch(sessionProvider).enableAuthPage = true;
 
       setState(() {
         _loading = true;

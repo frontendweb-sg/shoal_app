@@ -23,6 +23,10 @@ class StorageService {
     return await _preferences.setBool(key, value);
   }
 
+  Future<bool> setTimer(int value) {
+    return _preferences.setInt(AppConstants.APP_SESSION_TIME_OUT, value);
+  }
+
   bool userFirstTimeOpenApp() {
     return _preferences.getBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME) ??
         false;
@@ -39,6 +43,10 @@ class StorageService {
   String get getToken {
     String? token = _preferences.getString(AppConstants.APP_AUTH_TOKEN);
     return token!;
+  }
+
+  int? get sessionTime {
+    return _preferences.getInt(AppConstants.APP_SESSION_TIME_OUT);
   }
 
   Future<bool> logout() {

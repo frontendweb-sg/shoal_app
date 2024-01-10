@@ -32,8 +32,8 @@ class LoginNotifier extends StateNotifier<AsyncValue<LoginResponseEntity?>> {
               AppConstants.APP_AUTH_TOKEN,
               data.data!.accessToken,
             );
+            Global.storage.setTimer(data.data!.expiresIn);
           }
-
           return AsyncValue.data(data);
         },
       );
