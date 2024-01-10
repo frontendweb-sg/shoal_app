@@ -1,4 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shoal_app/core/utils/interceptors.dart';
 import 'package:shoal_app/modules/auth/business/repos/auth.dart';
 import 'package:shoal_app/modules/auth/data/datasource/auth_datasource.dart';
 import 'package:shoal_app/modules/auth/data/repos/auth_imp.dart';
@@ -10,7 +11,7 @@ import 'package:shoal_app/shared/providers/dio.dart';
 ///
 final authDatasourceProvider = Provider<AuthDatasource>(
   (ref) => AuthDatasource(
-    ref.watch(dioClientProvider),
+    ref.watch(dioClientProvider)..interceptors.add(AuthInterceptor()),
   ),
 );
 

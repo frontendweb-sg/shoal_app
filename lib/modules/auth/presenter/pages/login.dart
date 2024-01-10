@@ -5,6 +5,8 @@ import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
+import 'package:shoal_app/core/params/params.dart';
+import 'package:shoal_app/core/secrets/env.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/forgot_password.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
 import 'package:shoal_app/modules/auth/presenter/providers/login.dart';
@@ -24,6 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   bool _loading = false;
   bool _rememberMe = false;
   final _formKey = GlobalKey<FormState>();
+
   final Map<String, dynamic> _auth = {"userName": "", "password": ""};
 
   void onSubmit() async {
@@ -34,8 +37,21 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _loading = true;
       });
 
+      Map<String, dynamic> payload = {
+        "AuthParameters": {
+          "USERNAME": _auth['userName'],
+          "PASSWORD": _auth['password']
+        },
+        "AuthFlow": Env.authFlow,
+        "ClientId": Env.clientId,
+      };
+
+      // AuthPayload payload = AuthPayload(AuthParameters: {
+      //   "USERNAME": _auth['userName'],
+      //   "PASSWORD": _auth['password']
+      // }, AuthFlow: Env.authFlow, ClientId: Env.clientId);
       // api logic
-      await ref.watch(loginProvider.notifier).login(_auth);
+      await ref.watch(loginProvider.notifier).login(payload);
 
       Future.delayed(const Duration(seconds: 10), () {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();

@@ -9,7 +9,8 @@ import 'package:shoal_app/modules/auth/business/entities/register_response_entit
 ///
 abstract class AuthRepo {
   Future<Either<Failure, LoginResponseEntity>> login(
-      Map<String, dynamic> payload);
+    Map<String, dynamic> payload,
+  );
   Future<Either<Failure, RegisterResponseEntity>> register(
       Map<String, dynamic> payload);
 }

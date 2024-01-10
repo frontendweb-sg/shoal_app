@@ -15,3 +15,15 @@ class MutationParam {
     required this.variables,
   });
 }
+
+class AuthPayload {
+  final Map<String, dynamic> AuthParameters;
+  final String AuthFlow;
+  final String ClientId;
+
+  const AuthPayload({
+    required this.AuthParameters,
+    required this.AuthFlow,
+    required this.ClientId,
+  });
+}

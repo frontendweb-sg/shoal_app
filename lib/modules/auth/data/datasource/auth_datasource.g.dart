@@ -13,8 +13,7 @@ class _AuthDatasource implements AuthDatasource {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??=
-        'https://56ehoxomnk.execute-api.us-west-2.amazonaws.com/Prod/api';
+    baseUrl ??= 'https://cognito-idp.ap-south-1.amazonaws.com';
   }
 
   final Dio _dio;
@@ -37,7 +36,7 @@ class _AuthDatasource implements AuthDatasource {
     )
             .compose(
               _dio.options,
-              '/Account/SignIn',
+              '/',
               queryParameters: queryParameters,
               data: _data,
             )

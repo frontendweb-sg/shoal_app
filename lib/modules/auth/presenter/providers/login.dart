@@ -28,6 +28,8 @@ class LoginNotifier extends StateNotifier<AsyncValue<LoginResponseEntity?>> {
         (l) => AsyncValue.error(l.message, StackTrace.current),
         (data) {
           if (data.data != null) {
+            print('data $data');
+            print('data-- ${data.data}');
             Global.storage.setValue(
               AppConstants.APP_AUTH_TOKEN,
               data.data!.accessToken,
