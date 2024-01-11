@@ -91,6 +91,7 @@ class _CountryScreenState extends ConsumerState<CountryScreen> {
         title: "Country",
         actions: [
           IconButton(
+            key: const Key("add country"),
             onPressed: () {
               onOpenModal();
             },

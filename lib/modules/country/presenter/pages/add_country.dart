@@ -92,46 +92,54 @@ class _AddCountry extends ConsumerState<AddCountry> {
             const SizedBox(
               height: 25.0,
             ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              textInputAction: TextInputAction.next,
-              decoration: inputDecoration(
-                context,
-                hintText: AppContent.strName,
-                icon: Icons.place,
+            Semantics(
+              value: "name",
+              child: TextFormField(
+                key: const Key("name"),
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.next,
+                decoration: inputDecoration(
+                  context,
+                  hintText: AppContent.strName,
+                  icon: Icons.place,
+                ),
+                initialValue: _name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppContent.strFieldRequired;
+                  }
+              
+                  return null;
+                },
+                onSaved: (value) {
+                  _name = value!;
+                },
               ),
-              initialValue: _name,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppContent.strFieldRequired;
-                }
-
-                return null;
-              },
-              onSaved: (value) {
-                _name = value!;
-              },
             ),
             const SizedBox(
               height: 20.0,
             ),
-            DropdownButtonFormField(
-              decoration: inputDecoration(context, icon: Icons.place),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return AppContent.strFieldRequired;
-                }
-                return null;
-              },
-              items: countyCodes.map((e) {
-                return DropdownMenuItem(
-                  value: e,
-                  child: Text(e),
-                );
-              }).toList(),
-              onChanged: (value) {
-                _cCode = value!;
-              },
+            Semantics(
+              value: "country",
+              child: DropdownButtonFormField(
+                key: const Key("country"),
+                decoration: inputDecoration(context, icon: Icons.place),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return AppContent.strFieldRequired;
+                  }
+                  return null;
+                },
+                items: countyCodes.map((e) {
+                  return DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  _cCode = value!;
+                },
+              ),
             ),
             const SizedBox(
               height: 20.0,
