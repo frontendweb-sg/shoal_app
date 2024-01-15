@@ -70,6 +70,7 @@ class Sidebar extends ConsumerWidget {
     final themeState = ref.watch(themeProvider);
     final themeNotifier = ref.read(themeProvider.notifier);
     return Drawer(
+      key: const ValueKey("menu"),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [

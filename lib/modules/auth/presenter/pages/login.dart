@@ -38,9 +38,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _loading = true;
       });
 
+         Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (build) => const HomeScreen(),
+            ),
+          );
+
       print(_auth);
       // api logic
-      await ref.read(loginProvider.notifier).login(_auth);
+      // await ref.read(loginProvider.notifier).login(_auth);
 
       Future.delayed(const Duration(seconds: 10), () {
         ScaffoldMessenger.of(context).hideCurrentSnackBar();

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/typography.dart';
 import 'package:shoal_app/core/constants/images.dart';
+import 'package:flutter/services.dart';
 
 class Navbar extends StatelessWidget implements PreferredSizeWidget {
   const Navbar({super.key, this.title});
@@ -39,8 +42,27 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
             size: 17.5,
           ),
         ),
+        const SizedBox(height: 20),
+       IconButton(
+        key: const ValueKey("close"),
+        tooltip: "Close the app",
+        onPressed: exitapp,
+        icon: const Icon(Icons.close)
+        ),
+        FloatingActionButton
+        (onPressed: exitapp,
+        tooltip: "closeApp",
+        key: const ValueKey("keyClose"),)
       ],
     );
+  }
+
+  void exitapp() {
+     if (Platform.isIOS) {
+                exit(0);
+                } else {
+                SystemNavigator.pop();
+            }
   }
 
   @override
