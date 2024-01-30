@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shoal_app/config/theme/colors.dart';
 import 'package:shoal_app/config/theme/decorations.dart';
 import 'package:shoal_app/config/theme/typography.dart';
@@ -10,6 +13,7 @@ import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
 import 'package:shoal_app/modules/auth/presenter/providers/login.dart';
 import 'package:shoal_app/modules/auth/presenter/widgets/auth_wrapper.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
+import 'package:shoal_app/routes/route_utils.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 import 'package:shoal_app/shared/widgets/toaster.dart';
 
@@ -38,11 +42,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _loading = true;
       });
 
-         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (build) => const HomeScreen(),
-            ),
-          );
+        //  Navigator.of(context).pushReplacement(
+        //     MaterialPageRoute(
+        //       builder: (build) => const HomeScreen(),
+        //     ),
+        //   );
+
+        context.go(PAGES.home.screenPath);
 
       print(_auth);
       // api logic
@@ -186,11 +192,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (ctx) => const ForgotPasswordScreen(),
-                    ),
-                  );
+                  context.push('/test');
+                  // Navigator.of(context).pushReplacement(
+                  //   MaterialPageRoute(
+                  //     builder: (ctx) => const ForgotPasswordScreen(),
+                  //   ),
+                  // );
                 },
                 child: Text(
                   AppContent.strForgotText,

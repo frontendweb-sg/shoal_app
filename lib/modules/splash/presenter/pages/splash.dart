@@ -10,6 +10,8 @@ import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/register.dart';
 import 'package:shoal_app/modules/splash/presenter/providers/index_notifier.dart';
+import 'package:shoal_app/routes/app_route.dart';
+import 'package:shoal_app/routes/route_utils.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
@@ -139,7 +141,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                   button(
                     context,
                     variant: Variant.text,
-                    onPressed: () => onNext(const LoginScreen()),
+                    onPressed: () => AppRouter.router.go(PAGES.login.screenPath),
                     label: AppContent.strLoginText,
                   )
                 ],

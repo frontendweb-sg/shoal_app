@@ -8,12 +8,13 @@ import 'package:shoal_app/globals.dart';
 import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
+import 'package:shoal_app/routes/app_route.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
 import 'package:flutter_driver/driver_extension.dart';
 
 void main() async {
   // global cofiguration initialize
-  enableFlutterDriverExtension();
+  // enableFlutterDriverExtension();
   await Global.init();
   runApp(
     const ProviderScope(
@@ -28,24 +29,27 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    StorageService storageService = Global.storage;
-    bool isFirstTime = storageService.userFirstTimeOpenApp();
-    bool isToken = storageService.userIsAuthenticated;
+    // StorageService storageService = Global.storage;
+    // bool isFirstTime = storageService.userFirstTimeOpenApp();
+    // bool isToken = storageService.userIsAuthenticated;
 
-    Widget screen = const SplashScreen();
-    if (isFirstTime && !isToken) {
-      screen = const LoginScreen();
-    } else if (isToken) {
-      screen = const HomeScreen();
-    }
+    // Widget screen = const SplashScreen();
+    // if (isFirstTime && !isToken) {
+    //   screen = const LoginScreen();
+    // } else if (isToken) {
+    //   screen = const HomeScreen();
+    // }
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routerDelegate: AppRouter.router.routerDelegate,
       title: AppContent.strAppName,
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: ref.watch(themeProvider) ? ThemeMode.dark : ThemeMode.light,
-      home: screen,
+      // home: screen,
     );
   }
 }
