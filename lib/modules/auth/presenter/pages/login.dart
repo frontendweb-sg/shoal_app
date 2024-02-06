@@ -11,6 +11,7 @@ import 'package:shoal_app/modules/auth/presenter/providers/login.dart';
 import 'package:shoal_app/modules/auth/presenter/widgets/auth_wrapper.dart';
 import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/shared/widgets/button.dart';
+import 'package:shoal_app/shared/widgets/session_listener.dart';
 import 'package:shoal_app/shared/widgets/toaster.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -29,6 +30,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     "password": "",
     "rememberMe": true,
   };
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void onSubmit() async {
     if (_formKey.currentState!.validate()) {

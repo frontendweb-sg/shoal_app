@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shoal_app/config/theme/theme.dart';
 import 'package:shoal_app/core/i18n/contents.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
@@ -10,20 +9,62 @@ import 'package:shoal_app/modules/home/presenter/pages/home.dart';
 import 'package:shoal_app/modules/splash/presenter/pages/splash.dart';
 import 'package:shoal_app/shared/providers/theme_riverpod.dart';
 import 'package:flutter_driver/driver_extension.dart';
+import 'package:shoal_app/shared/widgets/session_listener.dart';
 
 void main() async {
   // global cofiguration initialize
-  enableFlutterDriverExtension();
+  // enableFlutterDriverExtension();
   await Global.init();
-  runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
-  );
+
+  runApp(ProviderScope(child: MyApp()));
+
+  // final _navigatorKey = GlobalKey<NavigatorState>();
+  // runApp(
+  //   SessionTimeoutListener(
+  //     duration: const Duration(seconds: 40),
+  //     onTimeOut: () {
+  //         Navigator.of(_navigatorKey.currentState!.context).pushReplacement(
+  //               MaterialPageRoute(
+  //                 builder: (builder) => const LoginScreen(),
+  //               ),
+  //             );
+  //     },
+  //     child: const ProviderScope(
+  //       child: MyApp(),
+  //     ),
+  //   ),
+  // );
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final _navigatorKey = GlobalKey<NavigatorState>();
+
+  Future<void> timedOut() async {
+    await showDialog(
+      context: _navigatorKey.currentState!.overlay!.context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: const Text('Session Time out Alert!'),
+        content: const Text(
+            'Sorry but you have been logged out due to inactivity...'),
+        actions: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil<dynamic>(
+                context,
+                MaterialPageRoute<dynamic>(
+                  builder: (BuildContext context) => const LoginScreen(),
+                ),
+                (route) => false,
+              );
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   // This widget is the root of your application.
   @override
@@ -39,13 +80,22 @@ class MyApp extends ConsumerWidget {
       screen = const HomeScreen();
     }
 
-    return MaterialApp(
-      title: AppContent.strAppName,
-      debugShowCheckedModeBanner: false,
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: ref.watch(themeProvider) ? ThemeMode.dark : ThemeMode.light,
-      home: screen,
+    return SessionTimeoutListener(
+      duration: const Duration(seconds: 20),
+      onTimeOut: () {
+        if (isToken) {
+          timedOut();
+        }
+      },
+      child: MaterialApp(
+        navigatorKey: _navigatorKey,
+        title: AppContent.strAppName,
+        debugShowCheckedModeBanner: false,
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        themeMode: ref.watch(themeProvider) ? ThemeMode.dark : ThemeMode.light,
+        home: screen,
+      ),
     );
   }
 }

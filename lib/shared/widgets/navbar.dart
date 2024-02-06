@@ -14,18 +14,19 @@ class Navbar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
-      // leading: IconButton(
-      //   iconSize: 18.0,
-      //   icon: const ImageIcon(
-      //     AssetImage(
-      //       AppImage.imgDrawerIcon,
-      //     ),
-      //     size: 18.0,
-      //   ),
-      //   onPressed: () {
-      //     Scaffold.of(context).openDrawer();
-      //   },
-      // ),
+      leading: IconButton(
+        tooltip: "menu",
+        iconSize: 18.0,
+        icon: const ImageIcon(
+          AssetImage(
+            AppImage.imgDrawerIcon,
+          ),
+          size: 18.0,
+        ),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      ),
 
       title: textBodyLarge(
         context,
