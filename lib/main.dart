@@ -15,25 +15,7 @@ void main() async {
   // global cofiguration initialize
   // enableFlutterDriverExtension();
   await Global.init();
-
   runApp(ProviderScope(child: MyApp()));
-
-  // final _navigatorKey = GlobalKey<NavigatorState>();
-  // runApp(
-  //   SessionTimeoutListener(
-  //     duration: const Duration(seconds: 40),
-  //     onTimeOut: () {
-  //         Navigator.of(_navigatorKey.currentState!.context).pushReplacement(
-  //               MaterialPageRoute(
-  //                 builder: (builder) => const LoginScreen(),
-  //               ),
-  //             );
-  //     },
-  //     child: const ProviderScope(
-  //       child: MyApp(),
-  //     ),
-  //   ),
-  // );
 }
 
 class MyApp extends ConsumerWidget {
@@ -49,7 +31,7 @@ class MyApp extends ConsumerWidget {
         content: const Text(
             'Sorry but you have been logged out due to inactivity...'),
         actions: <Widget>[
-          FloatingActionButton(
+          TextButton(
             onPressed: () {
               Navigator.pushAndRemoveUntil<dynamic>(
                 context,
@@ -59,12 +41,19 @@ class MyApp extends ConsumerWidget {
                 (route) => false,
               );
             },
-            child: const Text('OK'),
+            child: const Text('Cancle'),
+          ),
+          TextButton(
+            onPressed: () {
+             Navigator.pop(context);
+            },
+            child: const Text('Continue'),
           ),
         ],
       ),
     );
   }
+
 
   // This widget is the root of your application.
   @override
@@ -72,6 +61,7 @@ class MyApp extends ConsumerWidget {
     StorageService storageService = Global.storage;
     bool isFirstTime = storageService.userFirstTimeOpenApp();
     bool isToken = storageService.userIsAuthenticated;
+    // bool isToken = true;
 
     Widget screen = const SplashScreen();
     if (isFirstTime && !isToken) {
@@ -85,7 +75,7 @@ class MyApp extends ConsumerWidget {
       onTimeOut: () {
         if (isToken) {
           timedOut();
-        }
+        }             
       },
       child: MaterialApp(
         navigatorKey: _navigatorKey,

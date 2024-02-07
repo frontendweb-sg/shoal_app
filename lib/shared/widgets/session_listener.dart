@@ -2,18 +2,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shoal_app/core/utils/storage_service.dart';
 import 'package:shoal_app/globals.dart';
+import 'package:shoal_app/modules/auth/presenter/pages/login.dart';
 
 class SessionTimeoutListener extends StatefulWidget {
   Widget child;
   Duration duration;
   VoidCallback onTimeOut;
-  VoidCallback? cancelTimer;
   SessionTimeoutListener(
       {super.key,
       required this.child,
       required this.duration,
       required this.onTimeOut,
-      this.cancelTimer
       });
 
   @override
@@ -21,7 +20,7 @@ class SessionTimeoutListener extends StatefulWidget {
 }
 
 class _SessionTimeoutListenerState extends State<SessionTimeoutListener> { 
-
+  
   Timer? _timer;
   startTimer() {
     print('Start Timer');
@@ -42,7 +41,6 @@ class _SessionTimeoutListenerState extends State<SessionTimeoutListener> {
 
   @override
   void initState() {
-
     startTimer();
     super.initState();
   }
